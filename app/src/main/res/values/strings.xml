@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">StepikDevMobApp</string>
+    <string name="app_name">Stepik Music App</string>
+    <string name="image_article">Image article</string>
+<!--    <string name="app_name">StepikDevMobApp</string>-->
 </resources>

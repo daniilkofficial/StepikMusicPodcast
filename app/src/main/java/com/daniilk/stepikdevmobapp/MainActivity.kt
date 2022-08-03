@@ -16,9 +16,6 @@ import io.realm.RealmList
 import io.realm.RealmObject
 
 class MainActivity : AppCompatActivity() {
-    //    private lateinit var launcher: ActivityResultLauncher<Intent>
-    //    private lateinit var linearList: LinearLayout
-//    private lateinit var textView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,26 +34,13 @@ class MainActivity : AppCompatActivity() {
             // commitAllowingStateLoss - допускающая потерю состояния
 
         }
-//        linearList = findViewById(R.id.linearList)
-//        launcher =
-//            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-//                if (result.resultCode == RESULT_OK)
-//                    textView.text = result.data?.getStringExtra("text")
-//            }
-
-//            val i = Intent(this, SecondActivity::class.java)
-//            i.putExtra("text", textView.text)
-//            launcher.launch(i)
-
-        // Как нельзя делать: AsyncTask(doInBackground,onPostExecute)  и Thread(run, runOnUiThread)
-        // варианты .flatMap { Observable.create<String> {} }.zipWith(Observable.create<String> {})
-
     }
 
+    // Отображение статьи
     fun showArticle(url: String) {
         val bundle = Bundle()
         bundle.putString("url", url)
-        val fragment = SecondFragment()
+        val fragment = WebFragment()
         fragment.arguments = bundle
 
         val frame2 = findViewById<View>(R.id.fragment_place2)
@@ -81,33 +65,6 @@ class MainActivity : AppCompatActivity() {
         startService(intent)
     }
 
-//    private fun showLinearLayout(feedList: ArrayList<FeedItem>) {
-//        val inflate = layoutInflater
-//        for (f in feedList) {
-//            val view = inflate.inflate(R.layout.list_item, linearList, false)
-//            val txtTitle = view.findViewById<TextView>(R.id.txtTitle)
-//            txtTitle.text = f.title
-//            linearList.addView(view)
-//        }
-//
-//    }
-//
-//    private fun showListView(feedList: ArrayList<FeedItem>) {
-//        listView.adapter = Adapter(feedList)
-//    }
-
-
-//    override fun onConfigurationChanged(newConfig: Configuration) {
-//        super.onConfigurationChanged(newConfig)
-//    }
-//
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//    }
-//
-//    override fun onDestroy() {
-//        super.onDestroy()
-//    }
 
     companion object {
         internal const val TAG = "MainActivity"
@@ -137,30 +94,6 @@ open class FeedItem(
     var description: String = "",
     var guid: String = ""
 ) : RealmObject()
-
-/* class Adapter(private val items: ArrayList<FeedItem>) : BaseAdapter() {
-    override fun getCount(): Int {
-        return items.size
-    }
-
-    override fun getItem(position: Int): Any {
-        return items[position]
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getView(position: Int, converterView: View?, parent: ViewGroup?): View {
-        val inflater = LayoutInflater.from(parent!!.context)
-        val view = converterView ?: inflater.inflate(R.layout.list_item, parent, false)
-        val txtTitle = view.findViewById<TextView>(R.id.txtTitle)
-        val item = getItem(position) as FeedItem
-        txtTitle.text = item.title
-        return view
-    }
-
-} */
 
 class RecAdapter(private val items: RealmList<FeedItem>) :
     RecyclerView.Adapter<RecAdapter.RecHolder>() {
@@ -197,15 +130,15 @@ class RecAdapter(private val items: RealmList<FeedItem>) :
             val thumbURI: String = item.thumbnail
             try {
                 Picasso.with(imgThumb.context).load(thumbURI).into(imgThumb)
-            } catch (e: Exception) {
+            } catch (e: Exception) { // При пустой картинке или ошибке
                 Log.e("ImgLoadingError", e.message ?: "null")
-                val defaultThumbURI: String =
+                val defaultThumbURI =
                     "https://img3.akspic.ru/previews/8/7/7/6/6/166778/166778-spongebob-360x640.jpg"
                 Picasso.with(imgThumb.context).load(defaultThumbURI).into(imgThumb)
             }
 
             itemView.setOnClickListener {
-//                (itemView.context as MainActivity).showArticle(item.link)
+                (itemView.context as MainActivity).showArticle(item.link)
                 (itemView.context as MainActivity).playMusic(item.guid)
             }
         }

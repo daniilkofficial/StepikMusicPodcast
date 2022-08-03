@@ -20,18 +20,12 @@ class MainFragment : Fragment(), LifecycleObserver {
     private lateinit var recyclerView: RecyclerView
     private var request: Disposable? = null
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val param = arguments?.getString("param")
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.activity_main, container, false)
+        val view = inflater.inflate(R.layout.fragment_main, container, false)
 
         recyclerView = view.findViewById(R.id.recyclerView)
 
@@ -42,7 +36,6 @@ class MainFragment : Fragment(), LifecycleObserver {
         super.onActivityCreated(savedInstanceState)
 
         val o =
-//            createRequest("https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Frss.xml")
             createRequest("https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.twit.tv%2Fbrickhouse.xml")
                 .map { Gson().fromJson(it, FeedApi::class.java) }
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())

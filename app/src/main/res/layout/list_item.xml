@@ -10,6 +10,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:contentDescription="@string/image_article"
             android:id="@+id/imgThumb"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -24,8 +25,8 @@
                 android:id="@+id/txtTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TEXT"
                 android:lines="1"
+                android:text="TEXT"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

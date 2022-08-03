@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import androidx.fragment.app.Fragment
 
-class SecondFragment : Fragment() {
+class WebFragment : Fragment() {
     private lateinit var url: String
     private lateinit var webView: WebView
 
@@ -22,7 +22,7 @@ class SecondFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.second_fragment, container, false)
+        val view = inflater.inflate(R.layout.fragment_web, container, false)
         webView = view.findViewById(R.id.webView)
         return view
     }

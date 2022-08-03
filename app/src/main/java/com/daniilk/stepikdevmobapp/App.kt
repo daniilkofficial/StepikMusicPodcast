@@ -8,21 +8,14 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        // Realm инициализация, чтение в UI потоке, миграция и конфигурация
         Realm.init(this)
         val realmBuilder = RealmConfiguration.Builder()
             .allowWritesOnUiThread(true)
             .schemaVersion(1)
-            .deleteRealmIfMigrationNeeded()
+            .deleteRealmIfMigrationNeeded() // мигрирование изменний БД
         val realmConfiguration = realmBuilder.build()
         Realm.setDefaultConfiguration(realmConfiguration)
-
-//        getSharedPreferences("name", 0)
-//            .edit()
-//            .putString("zzz", "xx")
-//            .apply()
-//
-//        getSharedPreferences("name", 0)
-//            .getString("zzz", "")
 
     }
 }

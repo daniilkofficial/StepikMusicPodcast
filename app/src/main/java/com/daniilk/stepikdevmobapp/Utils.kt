@@ -4,7 +4,7 @@ import io.reactivex.Observable
 import java.net.HttpURLConnection
 import java.net.URL
 
-fun createRequest(url: String): Observable<String> = Observable.create<String> {
+fun createRequest(url: String): Observable<String> = Observable.create {
     val urlConnection = URL(url).openConnection() as HttpURLConnection
     try {
         urlConnection.connect() // само обращение в сеть

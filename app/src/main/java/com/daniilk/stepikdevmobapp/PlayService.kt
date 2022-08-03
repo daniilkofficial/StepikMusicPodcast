@@ -17,11 +17,7 @@ class PlayService : Service() {
     var player: MediaPlayer? = null
     var notification: NotificationCompat.Builder? = null
 
-    // вызод при создании 1 раз
-    override fun onCreate() {
-        super.onCreate()
-    }
-
+    // Запуск
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent?.action == "stop") {
             player?.stop()
@@ -104,13 +100,12 @@ class PlayService : Service() {
         return START_NOT_STICKY
     }
 
-    // уничтожение
     override fun onDestroy() {
         player?.stop()
         super.onDestroy()
     }
 
-    // запущен или подключен
+    // Без подключения к запущеному
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
